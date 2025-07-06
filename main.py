@@ -116,6 +116,8 @@ else:
     else:
         postion = "bottom right quadrant"
 
+print("update")
+
 
 print(f"My name cordinate is ({robot_row_index},{robot_col_index}). My postion is: {postion}")
 print(f"My name is {robot_name} and my ID: {robot_id}")
