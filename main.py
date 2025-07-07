@@ -86,19 +86,18 @@ else:
     print("Just nice!")
     print(f"new temperature {user_temperature}")
 """
-robot_name = input("Enter robot name: ")
-
+#CONST
 robot_id = 1000
-number_rows = 10
-number_cols = 10
 
+#USER input
+robot_name = input("Enter robot name: ")
 robot_row_index = int(input("Enter robot row index: "))
 robot_col_index = int(input("Enter robot col index: "))
+robot_initial_direction = input("What is its initial direction [n|s|e|w]? ")
 
 #NEW LOGIC FOR (row,col)
 robot_row_index = max(0,min(robot_row_index,9))
 robot_col_index = max(0,min(robot_col_index,9))
-
 
 #OLD LOGIC FOR (row,col)
 """
@@ -107,12 +106,8 @@ if robot_row_index < 0:
 if robot_row_index > 9:
     robot_row_index = 9
 """
-
-if robot_col_index < 0:
-    robot_col_index = 0
-if robot_col_index > 9:
-    robot_col_index = 9
 postion = "my postion"
+
 if robot_col_index <= 4:
     if robot_row_index <= 4:
         postion = "top left quadrant"
@@ -124,9 +119,55 @@ else:
     else:
         postion = "bottom right quadrant"
 
-print("update")
-
-
 print(f"My name cordinate is ({robot_row_index},{robot_col_index}). My postion is: {postion}")
 print(f"My name is {robot_name} and my ID: {robot_id}")
+print("update")
+
+#LOGIC for direction 
+if robot_initial_direction == "n":
+    robot_row_index = robot_row_index - 1
+    if robot_row_index < 0:
+        robot_row_index = 0
+    if robot_row_index < 5:
+        if robot_col_index < 5:
+            postion = "top lef quadrant"
+        else:
+            postion = "top right qudrant"
+    print("Im facing North")
+
+elif robot_initial_direction == "w":
+    robot_col_index = robot_col_index - 1
+    if robot_col_index < 0:
+        robot_col_index = 0
+    if robot_col_index < 5:
+        if robot_row_index < 5:
+            postion = "top left quadrant"
+        else:
+            postion = "bottom left qudrant"
+    print("Im facing West")    
+
+elif robot_initial_direction == "e":
+    robot_col_index = robot_col_index +1
+    if robot_col_index > 9:
+        robot_col_index = 9
+    if robot_col_index > 4:
+        if robot_row_index > 4:
+            postion = "bottom right quadrant"
+        else:
+            postion = "top right quadrant"
+    print("Im facing East")
+
+elif robot_initial_direction == "s":
+    robot_row_index = robot_row_index +1
+    if robot_row_index > 9:
+        robot_row_index = 9
+    if robot_row_index > 4:
+        if robot_col_index > 4:
+            postion = "bottom right quadrant"
+        else:
+            postion = " bottom left quadrant"
+    print("Im facing South")
+
+print(f"My current cordinate is ({robot_row_index},{robot_col_index}). My postion is: {postion}")
+
     
