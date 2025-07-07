@@ -95,10 +95,18 @@ number_cols = 10
 robot_row_index = int(input("Enter robot row index: "))
 robot_col_index = int(input("Enter robot col index: "))
 
+#NEW LOGIC FOR (row,col)
+robot_row_index = max(0,min(robot_row_index,9))
+robot_col_index = max(0,min(robot_col_index,9))
+
+
+#OLD LOGIC FOR (row,col)
+"""
 if robot_row_index < 0:
     robot_row_index = 0
 if robot_row_index > 9:
     robot_row_index = 9
+"""
 
 if robot_col_index < 0:
     robot_col_index = 0
