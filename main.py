@@ -87,18 +87,31 @@ else:
     print(f"new temperature {user_temperature}")
 """
 #CONST
+import random
+
 robot_id = 1000
 
 #USER input
 robot_name = input("Enter robot name: ")
+
+#RANDOM row and column 
+robot_row_index = random.randrange(10)
+robot_col_index = random.randrange(10)
+robot_initial_direction = random.choice(['n', 's', 'e','w']) 
+
+#OLD input method
+"""
+robot_initial_direction = input("What is its initial direction [n|s|e|w]? ")
 robot_row_index = int(input("Enter robot row index: "))
 robot_col_index = int(input("Enter robot col index: "))
-robot_initial_direction = input("What is its initial direction [n|s|e|w]? ")
+"""
+
 
 #NEW LOGIC FOR (row,col)
+"""
 robot_row_index = max(0,min(robot_row_index,9))
 robot_col_index = max(0,min(robot_col_index,9))
-
+"""
 #OLD LOGIC FOR (row,col)
 """
 if robot_row_index < 0:
@@ -169,5 +182,3 @@ elif robot_initial_direction == "s":
     print("Im facing South")
 
 print(f"My current cordinate is ({robot_row_index},{robot_col_index}). My postion is: {postion}")
-
-    
