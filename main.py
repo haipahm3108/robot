@@ -196,7 +196,7 @@ robot_id = 1000
 
 #User INPUT
 robot_name = input("Enter robot name: ")
-#robot_initial_direction = input("enter: ")          #Temp for testing direction
+#robot_initial_direction = input("enter: ")         #Input direction
 
 #Robot ID OUPUT
 print(f"My name is {robot_name} and my ID: {robot_id}")
@@ -204,7 +204,7 @@ print(f"My name is {robot_name} and my ID: {robot_id}")
 #RANDOM row and column 
 robot_row_index = random.randrange(10)
 robot_col_index = random.randrange(10)
-robot_initial_direction = random.choice(['n', 's', 'e','w'])  
+robot_initial_direction = random.choice(['n', 's', 'e','w'])        #Random direction
 
 #LOGIC for direction 
 #Hit North
@@ -213,10 +213,11 @@ if robot_initial_direction == "n":
         print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing North")
         if robot_row_index != 0:    
             print("Move one step forward")
-        else: break
-        robot_row_index = robot_row_index - 1
-    
-    print("I have a wall in front of me!")
+        else: 
+            print("I have a wall in front of me!")
+            print("Turning 90 degrees clockwise ")
+            print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing East")
+        robot_row_index = robot_row_index - 1      
 
 #Hit West
 if robot_initial_direction == "w":
@@ -224,9 +225,11 @@ if robot_initial_direction == "w":
         print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing West ")
         if robot_col_index != 0:
             print("Move one step forward")
-        else: break
+        else: 
+            print("I have a wall in front of me!")
+            print("Turning 90 degrees clockwise ")
+            print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing North")
         robot_col_index = robot_col_index - 1   
-     print("I have a wall in front of me!")
 
 #Hit East  
 if robot_initial_direction == "e":
@@ -234,9 +237,11 @@ if robot_initial_direction == "e":
         print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing East ")
         if robot_col_index != 9:
             print("Move one step forward")
-        else: break
+        else: 
+            print("I have a wall in front of me!")
+            print("Turning 90 degrees clockwise ")
+            print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing South")
         robot_col_index = robot_col_index +1
-    print("I have a wall in front of me!")
         
 #Hit South
 if robot_initial_direction == "s":
@@ -244,8 +249,11 @@ if robot_initial_direction == "s":
         print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing South")
         if robot_row_index != 9:
             print("Move one step forward")
-        else: break
+        else: 
+            print("I have a wall in front of me!")
+            print("Turning 90 degrees clockwise ")
+            print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing East")
         robot_row_index = robot_row_index + 1
-    print("I have a wall in front of me!")
+
 
 
