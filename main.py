@@ -25,6 +25,29 @@ def expand_direction(short):
         return "East"
 
 
+def get_robot_name():
+    """Get robot name from txt file
+
+    Args:
+        robot_name(txt): a file contains all robot names
+    
+    Return:
+        Return the random name get form the txt file
+    """
+    names = []
+    textfile = open("robot_names.txt")
+    for name in textfile:
+        robot_name = name.strip()
+        names.append(robot_name)
+    
+    index = random.randrange(len(names))
+    for i in range(0,len(names)):
+        if i == index:
+            return names[i]
+        
+    
+
+
 def setup_robot(grid_size):
     """Initialise the robot name, ID and intitial direction, postion
     
@@ -38,7 +61,8 @@ def setup_robot(grid_size):
         int: Robot's column
         str: Robot's direction (n/e/s/w)
     """
-    robot_name = input("Enter robot name: ")
+    initial_input = input("Welcome!")
+    robot_name = get_robot_name()
     robot_id = 1000
     #RANDOM row and column 
     robot_row_index = random.randrange(grid_size)
@@ -100,7 +124,7 @@ def navigate(robot_initial_direction,
                 print("Turning 90 degrees clockwise ")
                 robot_initial_direction = "n"      #new direction
                     
-        #Hit East  
+        #Hit East
         elif robot_initial_direction == "e":
             if robot_col_index < grid_size - 1:
                     print("Move one step forward")
@@ -138,3 +162,5 @@ def run_simulation(grid_size = 10, target_row=9, target_col=9 ):
 
 grid_size = 10
 run_simulation(grid_size=grid_size)
+
+    
