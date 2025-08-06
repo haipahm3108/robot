@@ -194,7 +194,7 @@ def run_simulation(grid_size = 10, target_row=9, target_col=9, number_of_robots 
         
     
 grid_size = 10
-run_simulation(grid_size=grid_size,number_of_robots=2)
+run_simulation(grid_size=grid_size,number_of_robots=3)
 
 
     
