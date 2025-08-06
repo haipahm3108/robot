@@ -24,6 +24,17 @@ def expand_direction(short):
     elif short == "e":
         return "East"
 
+def get_robot_id(number_of_robots):
+    id_list = []
+    for id in range(1,number_of_robots+3):
+        id = 1000 + id
+        id_list.append(id)
+    
+    index = random.randrange(len(id_list))
+    for i in range(0,len(id_list)):
+        if i == index:
+            return id_list[i]
+    
 
 def get_robot_name():
     """Get robot name from txt file
@@ -45,10 +56,8 @@ def get_robot_name():
         if i == index:
             return names[i]
         
-    
 
-
-def setup_robot(grid_size):
+def setup_robot(grid_size,number_of_robots):
     """Initialise the robot name, ID and intitial direction, postion
     
     Args:
@@ -62,7 +71,7 @@ def setup_robot(grid_size):
         str: Robot's direction (n/e/s/w)
     """
     robot_name = get_robot_name()
-    robot_id = 1000
+    robot_id = get_robot_id(number_of_robots)
     #RANDOM row and column 
     robot_row_index = random.randrange(grid_size)
     robot_col_index = random.randrange(grid_size)
@@ -88,7 +97,8 @@ def navigate(robot_initial_direction,
              target_row,
              target_col,
              grid_size,
-             name):
+             name,
+             id):
 
     """Move the robot toward the target until it arrives.
 
@@ -102,7 +112,7 @@ def navigate(robot_initial_direction,
     
     """
     print()
-    print(f"{name} is navigating")
+    print(f"NAME: {name} |ID: {id} is navigating")
     print("Starting navigation...")
     #LOGIC for direction 
     while (robot_row_index, robot_col_index) != (target_row,target_col):
@@ -151,7 +161,7 @@ def navigate(robot_initial_direction,
     print(f"Arrived at target destination ({target_row},{target_col})")
 
 
-def run_simulation(grid_size = 10, target_row=9, target_col=9, number_robots = 3 ):
+def run_simulation(grid_size = 10, target_row=9, target_col=9, number_of_robots = 3 ):
     """Start robot navigate simulation
     
     Args:
@@ -164,24 +174,27 @@ def run_simulation(grid_size = 10, target_row=9, target_col=9, number_robots = 3
     robot_rows = []
     robot_cols = []
     robot_direction = []
-    for _ in range(number_robots):
-        name,id,row,col,direction = setup_robot(grid_size)
+    robot_id = []
+    for _ in range(number_of_robots):
+        name,id,row,col,direction = setup_robot(grid_size, number_of_robots)
         robot_name.append(name) 
         robot_rows.append(row)
         robot_cols.append(col)
         robot_direction.append(direction)
+        robot_id.append(id)
 
     
-    for name in robot_name:
-        robot_greeting(name, id)
+    for i in range(number_of_robots):
+        robot_greeting(robot_name[i], robot_id[i])
 
-    for i in range(number_robots):
+    for i in range(number_of_robots):
         current_target_row = targets[i][0]
         current_target_col = targets[i][1]
-        navigate(robot_direction[i], robot_rows[i], robot_cols[i], current_target_row, current_target_col, grid_size,robot_name[i])
+        navigate(robot_direction[i], robot_rows[i], robot_cols[i], current_target_row, current_target_col, grid_size,robot_name[i],robot_id[i])
         
     
 grid_size = 10
-run_simulation(grid_size=grid_size)
+run_simulation(grid_size=grid_size,number_of_robots=2)
+
 
     
