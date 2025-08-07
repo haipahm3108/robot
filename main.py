@@ -75,11 +75,12 @@ def setup_robot(grid_size,number_of_robots):
     #RANDOM row and column 
     robot_row_index = random.randrange(grid_size)
     robot_col_index = random.randrange(grid_size)
+    postition = (robot_row_index, robot_col_index)
     #robot_initial_direction = input("Enter starting direction (n/s/e/w):")         #Input direction
     direction = ["w", "s", "n", "e"]
     robot_initial_direction = random.choice(direction)
     
-    return (robot_name, robot_id, robot_row_index, robot_col_index, robot_initial_direction)
+    return (robot_name, robot_id, postition, robot_initial_direction)
 
 def robot_greeting(name, id):
     """ Printing what robot "say"
@@ -92,8 +93,7 @@ def robot_greeting(name, id):
 
 
 def navigate(robot_initial_direction,
-             robot_row_index,
-             robot_col_index,
+             postition,
              target_row,
              target_col,
              grid_size,
@@ -111,18 +111,20 @@ def navigate(robot_initial_direction,
         grid_size(int): grid size of the board (9x9)
     
     """
+    target_postition = (target_row,target_col)
+    current_postion = list(postition)
     print()
     print(f"NAME: {name} |ID: {id} is navigating")
     print("Starting navigation...")
     #LOGIC for direction 
-    while (robot_row_index, robot_col_index) != (target_row,target_col):
-        print(f"My current cordinate is ({robot_row_index},{robot_col_index}). Im facing {expand_direction(robot_initial_direction)}")
+    while tuple(current_postion) != target_postition:
+        print(f"My current cordinate is ({postition}). Im facing {expand_direction(robot_initial_direction)}")
        
         #Hit North
         if robot_initial_direction == "n":
-            if robot_row_index > 0:
+            if current_postion[0] > 0:
                 print("Move one step forward")
-                robot_row_index = robot_row_index - 1
+                current_postion[0] = current_postion[0] - 1
             else: 
                 print("I have a wall in front of me!")
                 print("Turning 90 degrees clockwise ")
@@ -130,9 +132,9 @@ def navigate(robot_initial_direction,
                            
         #Hit West
         elif robot_initial_direction == "w":
-            if robot_col_index > 0:
+            if current_postion[1] > 0:
                 print("Move one step forward")
-                robot_col_index = robot_col_index - 1          
+                current_postion[1] = current_postion[1] - 1          
             else: 
                 print("I have a wall in front of me!")
                 print("Turning 90 degrees clockwise ")
@@ -140,9 +142,9 @@ def navigate(robot_initial_direction,
                     
         #Hit East
         elif robot_initial_direction == "e":
-            if robot_col_index < grid_size - 1:
+            if current_postion[1] < grid_size - 1:
                     print("Move one step forward")
-                    robot_col_index = robot_col_index + 1
+                    current_postion[1] = current_postion[1] + 1
             else: 
                     print("I have a wall in front of me!")
                     print("Turning 90 degrees clockwise ")
@@ -150,15 +152,15 @@ def navigate(robot_initial_direction,
                     
         #Hit South
         elif robot_initial_direction == "s":
-            if robot_row_index < grid_size - 1:
+            if current_postion[0] < grid_size - 1:
                 print("Move one step forward")
-                robot_row_index = robot_row_index + 1 
+                current_postion[0] = current_postion[0] + 1 
             else: 
                 print("I have a wall in front of me!")
                 print("Turning 90 degrees clockwise ")
                 robot_initial_direction = "w"      #new direction
                 
-    print(f"Arrived at target destination ({target_row},{target_col})")
+    print(f"Arrived at target destination ({target_postition})")
 
 
 def run_simulation(grid_size = 10, target_row=9, target_col=9, number_of_robots = 3 ):
@@ -171,15 +173,13 @@ def run_simulation(grid_size = 10, target_row=9, target_col=9, number_of_robots 
     """    
     targets = [(9,9),(0,9),(9,9)]
     robot_name = []
-    robot_rows = []
-    robot_cols = []
+    robot_postition = []
     robot_direction = []
     robot_id = []
     for _ in range(number_of_robots):
-        name,id,row,col,direction = setup_robot(grid_size, number_of_robots)
+        name,id,postition,direction = setup_robot(grid_size, number_of_robots)
         robot_name.append(name) 
-        robot_rows.append(row)
-        robot_cols.append(col)
+        robot_postition.append(postition)
         robot_direction.append(direction)
         robot_id.append(id)
 
@@ -190,7 +190,7 @@ def run_simulation(grid_size = 10, target_row=9, target_col=9, number_of_robots 
     for i in range(number_of_robots):
         current_target_row = targets[i][0]
         current_target_col = targets[i][1]
-        navigate(robot_direction[i], robot_rows[i], robot_cols[i], current_target_row, current_target_col, grid_size,robot_name[i],robot_id[i])
+        navigate(robot_direction[i], robot_postition[i], current_target_row,current_target_col, grid_size,robot_name[i],robot_id[i])
         
     
 grid_size = 10
