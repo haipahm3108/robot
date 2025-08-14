@@ -23,17 +23,20 @@ def expand_direction(short):
         return "West"
     elif short == "e":
         return "East"
-
+used_id = []
 def get_robot_id(number_of_robots):
     id_list = []
-    for id in range(1,number_of_robots+3):
-        id = 1000 + id
+    
+    
+    for i in range(1,number_of_robots+3):
+        id = 1000 + i
         id_list.append(id)
     
-    index = random.randrange(len(id_list))
-    for i in range(0,len(id_list)):
-        if i == index:
-            return id_list[i]
+    while True:
+        robot_id = random.choice(id_list)
+        if robot_id not in used_id:
+            used_id.append(robot_id)
+            return robot_id
     
 
 def get_robot_name():
@@ -70,6 +73,7 @@ def setup_robot(grid_size,number_of_robots):
         int: Robot's column
         str: Robot's direction (n/e/s/w)
     """
+    robot = {}
     robot_name = get_robot_name()
     robot_id = get_robot_id(number_of_robots)
     #RANDOM row and column 
@@ -79,8 +83,12 @@ def setup_robot(grid_size,number_of_robots):
     #robot_initial_direction = input("Enter starting direction (n/s/e/w):")         #Input direction
     direction = ["w", "s", "n", "e"]
     robot_initial_direction = random.choice(direction)
+    robot["id"] = robot_id
+    robot["name"] = robot_name
+    robot["postition"] = postition
+    robot["direction"] = robot_initial_direction
     
-    return (robot_name, robot_id, postition, robot_initial_direction)
+    return robot
 
 def robot_greeting(name, id):
     """ Printing what robot "say"
@@ -194,7 +202,13 @@ def run_simulation(grid_size = 10, target_row=9, target_col=9, number_of_robots 
         
     
 grid_size = 10
-run_simulation(grid_size=grid_size,number_of_robots=3)
+number_of_robots = 4
+#run_simulation(grid_size=grid_size,number_of_robots=3)
+
+for _ in range(number_of_robots):
+    t= setup_robot(grid_size,number_of_robots)
+    print(t)
+
 
 
     
