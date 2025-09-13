@@ -84,7 +84,7 @@ class Robot:
         print("Starting navigation...")
 
         while tuple(self.position) != target_postition:
-            print(f"My current cordinate is ({self.position}). Im facing {self.expand_direction(self.direction)}")
+            print(f"My current coordinate is ({self.position}). Im facing {self.expand_direction(self.direction)}")
 
             before_position = tuple(self.position)
             self.move_forward(grid_size)
