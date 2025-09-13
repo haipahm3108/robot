@@ -43,7 +43,7 @@ Edit parameters inside ```main.py```
 * Once it reaches the target, it prints a success message.
 
 Example output:
-```bash
+```
 # number of robot is 4
 # target destination = [(0,9),(9,9),(9,0),(0,0)]
 # Each robot will have random unique names and get name inside robot_names.txt
